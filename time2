@@ -1,0 +1,9 @@
+import pandas as pd
+
+shuju2 = pd.read_csv(r"C:\Users\ekish\Desktop\HAN\data2.csv",encoding="shift-jis")
+
+print(shuju2["男女計"].dtype)
+print(shuju2)
+shuju2["男女計"] = shuju2["男女計"].astype(int)
+shuju2 = shuju2[(shuju2["男女計"]>=7000)&(shuju2["男"]>3500)]
+print(shuju2)

@@ -1,0 +1,14 @@
+import pandas as pd 
+df = pd.read_csv(r"C:\Users\ekish\Desktop\日本外国人1.csv",encoding="shift-jis")
+data = pd.read_csv(r"C:\Users\ekish\Desktop\日本外国人.csv",encoding="shift-jis")
+
+df["中国"] = df["中国"]+df["台湾"]
+df["中国"].astype(int)
+df1 = df.set_index("都道府県")
+df2=df1["中国"].idxmax()
+df3 = df.sort_values(by="中国",ascending=False)
+df4 = df3.head(5)
+df5 = df.iloc[0,12]
+
+print(f"日本にいる中国人の総数は{df5}")
+print(df4)

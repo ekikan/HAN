@@ -1,0 +1,29 @@
+# 空空如也
+import pandas as pd 
+df = pd.read_csv(r"C:\Users\ekish\Desktop\HAN\data_clean_sample\180101-190630莠､譏捺焚謐ｮ.csv", index_col = "id" )
+
+#单位转成元
+df["payment"] = df["payment"]/100
+df["price"] = df["price"]/100
+df["cutdown_price"] = df["cutdown_price"]/100
+df["post_fee"] = df["post_fee"]/100
+
+#转化成时间格式
+df["create_time"] = pd.to_datetime(df["create_time"])
+df["pay_time"] = pd.to_datetime(df["pay_time"])
+
+#异常值
+dfWrongId = df[(df["order_id"]<=0) | (df["user_id"]<=0)]
+df.drop(index = dfWrongId.index , inplace = True)
+
+dfWrongMoney = df[(df["payment"]<0) | (df["price"]<0) | (df["items_count"]<0) | (df["cutdown_price"]<0) | (df["post_fee"]<0)]
+df.drop(index = dfWrongMoney.index , inplace = True)
+
+dfWrongTime = df[df["create_time"] > df["pay_time"]]
+df.drop(index = dfWrongTime.index , inplace = True)
+
+#重复值
+dfOrderDu = df[df["order_id"].duplicated()]
+df.drop(index = dfOrderDu.index , inplace = True)
+
+df.info()

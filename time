@@ -1,0 +1,7 @@
+from datetime import datetime
+
+birth = datetime(2002,6,10,14)
+today = datetime(2022,10,11,14,33)
+
+birth1=birth.datetime.strftime("%Y-%m")
+print(birth1)
